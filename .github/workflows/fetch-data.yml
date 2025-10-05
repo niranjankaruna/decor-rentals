@@ -2,7 +2,7 @@ name: Fetch Data, Build & Deploy Angular
 
 on:
   workflow_dispatch:
-    # You can also schedule it with cron if needed
+    # Optional: schedule with cron if needed
     # - cron: '0 0 * * *'
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # --- Checkout the repository ---
+      # --- Checkout repository ---
       - name: Checkout repo
         uses: actions/checkout@v3
 
@@ -45,9 +45,13 @@ jobs:
 
       # --- Build Angular app for production ---
       - name: Build Angular App
-        run: npm run build -- --configuration production --base-href /decor-rentals/ --verbose
+        run: |
+          npm run build -- \
+            --configuration production \
+            --base-href /decor-rentals/ \
+            --output-path=dist/decor-rentals
 
-      # --- Debug: List dist folder to confirm output ---
+      # --- Debug: List dist folder to confirm build ---
       - name: Debug dist folder
         run: ls -R dist/
 
