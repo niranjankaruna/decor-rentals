@@ -45,7 +45,21 @@ jobs:
 
       # --- Build Angular app for production ---
       - name: Build Angular App
-        run: npm run build -- --configuration production --base-href /decor-rentals/
+        run: npm run build -- --configuration production --base-href /decor-rentals/ --verbose
+
+      # --- Debug: List dist folder to confirm output ---
+      - name: Debug dist folder
+        run: ls -R dist/
+
+      # --- Fix SPA routing for GitHub Pages ---
+      - name: Fix SPA routing
+        run: |
+          if [ -f dist/decor-rentals/index.html ]; then
+            cp dist/decor-rentals/index.html dist/decor-rentals/404.html
+          else
+            echo "index.html not found, aborting workflow"
+            exit 1
+          fi
 
       # --- Deploy to GitHub Pages ---
       - name: Deploy to GitHub Pages
