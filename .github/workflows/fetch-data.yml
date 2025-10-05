@@ -1,33 +1,53 @@
-name: Fetch Sheet & Images
+name: Fetch Data, Build & Deploy Angular
 
 on:
   workflow_dispatch:
+    # You can also add schedule:
+    # - cron: '0 0 * * *'
 
 jobs:
-  build-content:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
+    steps:
+      # --- Checkout the repo ---
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # --- Setup Python ---
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      # --- Install Python dependencies ---
+      - name: Install Python dependencies
         run: pip install requests
 
+      # --- Run Python script to fetch data & images ---
       - name: Fetch Sheet & Download Images
-        run: python fetch_data.py
-
-      - name: Commit changes
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add data.json images/
-          if ! git diff-index --quiet HEAD; then
-            git commit -m "Update sheet data and images"
-            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          else
-            echo "No changes to commit"
-          fi
+          echo "Running Python script..."
+          python scripts/fetch_data.py
+        # Make sure this script outputs to src/assets/data.json and src/assets/images/
+
+      # --- Setup Node.js for Angular ---
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      # --- Install Angular dependencies ---
+      - name: Install Angular dependencies
+        run: npm install
+
+      # --- Build Angular app ---
+      - name: Build Angular App
+        run: npm run build -- --configuration production --base-href /decor-rentals/
+
+      # --- Deploy to GitHub Pages ---
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v7
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/decor-rentals
