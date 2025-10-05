@@ -2,7 +2,7 @@ name: Fetch Data, Build & Deploy Angular
 
 on:
   workflow_dispatch:
-    # You can also add schedule:
+    # You can also schedule it with cron if needed
     # - cron: '0 0 * * *'
 
 jobs:
@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # --- Checkout the repo ---
+      # --- Checkout the repository ---
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # --- Setup Python ---
+      # --- Setup Python 3.11 ---
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -29,9 +29,11 @@ jobs:
         run: |
           echo "Running Python script..."
           python scripts/fetch_data.py
-        # Make sure this script outputs to src/assets/data.json and src/assets/images/
+        # The script should output to:
+        # src/assets/data.json
+        # src/assets/images/
 
-      # --- Setup Node.js for Angular ---
+      # --- Setup Node.js 22 for Angular ---
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -41,13 +43,13 @@ jobs:
       - name: Install Angular dependencies
         run: npm install
 
-      # --- Build Angular app ---
+      # --- Build Angular app for production ---
       - name: Build Angular App
         run: npm run build -- --configuration production --base-href /decor-rentals/
 
       # --- Deploy to GitHub Pages ---
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v7
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/decor-rentals
