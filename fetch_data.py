@@ -5,11 +5,21 @@ import requests
 
 # --- Configuration ---
 SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1E13tgTfM-iifKKJJJ_FAAiEJ3rpt3CAcFEbRcx7qU2A/export?format=csv'  # replace with your published CSV link
-IMAGES_DIR = 'src/assets/images'
-OUTPUT_JSON = 'src/assets/data.json'
+ASSETS_DIR = 'src/assets'
+IMAGES_DIR = os.path.join(ASSETS_DIR, 'images')
+OUTPUT_JSON = os.path.join(ASSETS_DIR, 'data.json')
+
+# Ensure assets directory exists
+os.makedirs(ASSETS_DIR, exist_ok=True)
 
 # Ensure images directory exists
 os.makedirs(IMAGES_DIR, exist_ok=True)
+
+# Ensure data.json exists, create with empty array if it doesn't
+if not os.path.exists(OUTPUT_JSON):
+    print(f"Creating empty data.json file at {OUTPUT_JSON}")
+    with open(OUTPUT_JSON, 'w') as f:
+        json.dump([], f)
 
 # Fetch CSV data from Google Sheet
 response = requests.get(SHEET_CSV_URL)
