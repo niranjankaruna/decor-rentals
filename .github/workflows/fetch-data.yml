@@ -45,10 +45,6 @@ jobs:
       - name: Build Angular App
         run: npm run build -- --configuration production --base-href /decor-rentals/
 
-      # --- Debug: List dist folder to confirm build ---
-      - name: Debug dist folder
-        run: ls -R dist/
-
       # --- Fix SPA routing for GitHub Pages (browser folder) ---
       - name: Fix SPA routing
         run: |
