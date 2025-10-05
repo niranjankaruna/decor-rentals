@@ -1,0 +1,33 @@
+name: Fetch Sheet & Images
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-content:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch Sheet & Download Images
+        run: python fetch_data.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data.json images/
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "Update sheet data and images"
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          else
+            echo "No changes to commit"
+          fi
