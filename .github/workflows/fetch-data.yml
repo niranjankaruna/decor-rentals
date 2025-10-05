@@ -47,6 +47,10 @@ jobs:
       - name: Build Angular App
         run: npm run build -- --configuration production --base-href /decor-rentals/
 
+      # --- Fix SPA routing for GitHub Pages ---
+      - name: Fix SPA routing
+        run: cp dist/decor-rentals/index.html dist/decor-rentals/404.html
+
       # --- Deploy to GitHub Pages ---
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
