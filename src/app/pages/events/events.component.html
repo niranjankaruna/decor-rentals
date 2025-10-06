@@ -1,1 +1,10 @@
-  <p>events works!</p>
+<div *ngFor="let event of events" class="event-card">
+  <h2>{{ event['Name'] }}</h2>
+  <p>{{ event['Description'] }}</p>
+
+  <div *ngIf="event['ImageLocal']?.length">
+    <img *ngFor="let img of event['ImageLocal']" [src]="img" alt="{{ event['Name'] }}" />
+  </div>
+
+  <p *ngIf="event['Decors']">Decors: {{ event['Decors'] }}</p>
+</div>

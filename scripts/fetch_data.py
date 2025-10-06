@@ -3,93 +3,136 @@ import csv
 import json
 import requests
 
-# --- Configuration ---
-SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1E13tgTfM-iifKKJJJ_FAAiEJ3rpt3CAcFEbRcx7qU2A/export?format=csv'  # replace with your published CSV link
-ASSETS_DIR = 'src/assets'
-IMAGES_DIR = os.path.join(ASSETS_DIR, 'images')
-OUTPUT_JSON = os.path.join(ASSETS_DIR, 'data.json')
+# ---- CONFIG ----
+SPREADSHEET_ID = "1E13tgTfM-iifKKJJJ_FAAiEJ3rpt3CAcFEbRcx7qU2A"
+SHEETS = ["Categories", "Products", "Decors", "Events"]
+IMAGES_DIR = os.path.join("src", "assets", "images")
+ASSETS_DIR = os.path.join("src", "assets")
 
-# Ensure assets directory exists
-os.makedirs(ASSETS_DIR, exist_ok=True)
+# --- Helper: Get CSV export URL for a specific sheet ---
+def get_sheet_csv_url(sheet_name):
+    return f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
 
-# Ensure images directory exists
-os.makedirs(IMAGES_DIR, exist_ok=True)
 
-# Ensure data.json exists, create with empty array if it doesn't
-if not os.path.exists(OUTPUT_JSON):
-    print(f"Creating empty data.json file at {OUTPUT_JSON}")
-    with open(OUTPUT_JSON, 'w') as f:
-        json.dump([], f)
+def ensure_dir(path):
+    """Ensure directory exists."""
+    os.makedirs(path, exist_ok=True)
 
-# Fetch CSV data from Google Sheet
-response = requests.get(SHEET_CSV_URL)
-response.raise_for_status()
-csv_text = response.text.splitlines()
-reader = csv.DictReader(csv_text)
 
-data_list = []
+def extract_drive_file_id(url):
+    """Extract file ID from Google Drive URL patterns."""
+    if "id=" in url:
+        return url.split("id=")[1].split("&")[0]
+    elif "/d/" in url:
+        return url.split("/d/")[1].split("/")[0]
+    return None
 
-for row_index, row in enumerate(reader):
-    # --- Convert comma-separated columns into arrays ---
-    row['Category'] = [c.strip() for c in row.get('Category', '').split(',') if c.strip()]
-    row['Tags'] = [t.strip() for t in row.get('Tags', '').split(',') if t.strip()]
-    row['Decor'] = [d.strip() for d in row.get('Decor', '').split(',') if d.strip()]
 
-    # --- Process webContentLinks column ---
-    web_links = row.get('webContentLinks', '').split('|')
-    local_images = []
+def find_existing_file(save_dir, file_id):
+    """Check if the file with this ID already exists (any supported extension)."""
+    for ext in [".jpg", ".jpeg", ".png", ".mp4", ".webp", ".bin"]:
+        path = os.path.join(save_dir, file_id + ext)
+        if os.path.exists(path):
+            return path
+    return None
 
-    for link_index, link in enumerate(web_links):
-        link = link.strip()
-        if not link:
-            continue
 
-        # Convert Google Drive shared link to direct download
-        if 'drive.google.com' in link:
-            try:
-                file_id = link.split('/d/')[1].split('/')[0]
-                direct_url = f'https://drive.google.com/uc?export=download&id={file_id}'
-                filename = f"{file_id}.jpg"
-            except IndexError:
-                print(f"Invalid Drive URL: {link}")
-                continue
+def download_drive_file(url, save_dir):
+    """
+    Download file from a public Google Drive link.
+    If file already exists, skip download.
+    Returns Angular asset path like 'assets/images/<fileid>.<ext>'.
+    """
+    ensure_dir(save_dir)
+    file_id = extract_drive_file_id(url)
+    if not file_id:
+        print(f"⚠️ Unable to extract file ID from: {url}")
+        return None
+
+    existing_file = find_existing_file(save_dir, file_id)
+    if existing_file:
+        print(f"⏩ Skipped (already exists): {existing_file}")
+        # Return Angular-friendly relative path
+        return f"assets/images/{os.path.basename(existing_file)}"
+
+    download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+
+    try:
+        response = requests.get(download_url, stream=True)
+        response.raise_for_status()
+
+        content_type = response.headers.get("content-type", "").lower()
+        if "jpeg" in content_type:
+            ext = ".jpg"
+        elif "png" in content_type:
+            ext = ".png"
+        elif "mp4" in content_type or "video" in content_type:
+            ext = ".mp4"
+        elif "webp" in content_type:
+            ext = ".webp"
         else:
-            # For normal image URLs
-            direct_url = link
-            filename = f"{row_index}_{link_index}.jpg"
+            ext = ".bin"
 
-        img_path = os.path.join(IMAGES_DIR, filename)
+        local_filename = os.path.join(save_dir, file_id + ext)
 
-        # Download image only if it doesn't exist
-        if not os.path.exists(img_path):
-            try:
-                r = requests.get(direct_url, timeout=30)
-                r.raise_for_status()
-                with open(img_path, 'wb') as f:
-                    f.write(r.content)
-                print(f"Downloaded: {img_path}")
-            except Exception as e:
-                print(f"Failed to download {direct_url}: {e}")
-                continue
-        else:
-            print(f"Already exists: {img_path}")
+        with open(local_filename, "wb") as f:
+            for chunk in response.iter_content(1024):
+                f.write(chunk)
 
-        local_images.append(f"{IMAGES_DIR}/{filename}")
+        print(f"✅ Downloaded: {local_filename}")
+        return f"assets/images/{file_id + ext}"
 
-    # --- Add local image paths to JSON object ---
-    row['ImagesLocal'] = local_images
+    except Exception as e:
+        print(f"❌ Failed to download {url}: {e}")
+        return None
 
-    # Optional: remove original webContentLinks if not needed
-    # del row['webContentLinks']
 
-    # Skip 'Image' column completely
-    if 'Image' in row:
-        del row['Image']
+def fetch_sheet_data(sheet_name):
+    """Fetch CSV data for a sheet and process rows."""
+    url = get_sheet_csv_url(sheet_name)
+    print(f"\n📥 Fetching CSV for sheet: {sheet_name}")
+    response = requests.get(url)
+    response.raise_for_status()
 
-    data_list.append(row)
+    lines = response.text.splitlines()
+    reader = csv.DictReader(lines)
 
-# --- Save final JSON ---
-with open(OUTPUT_JSON, 'w') as f:
-    json.dump(data_list, f, indent=2)
+    processed = []
+    ensure_dir(IMAGES_DIR)
 
-print(f"Processed {len(data_list)} rows and saved JSON to {OUTPUT_JSON}")
+    for row in reader:
+        obj = dict(row)
+        image_links = row.get("ImageLinks")
+
+        if image_links:
+            links = [link.strip() for link in image_links.split("|") if link.strip()]
+            local_paths = []
+            for link in links:
+                angular_path = download_drive_file(link, IMAGES_DIR)
+                if angular_path:
+                    local_paths.append(angular_path)
+            obj["ImageLocal"] = local_paths
+
+        processed.append(obj)
+
+    return processed
+
+
+def main():
+    all_data = {}
+    ensure_dir(ASSETS_DIR)
+    for sheet_name in SHEETS:
+        try:
+            all_data[sheet_name] = fetch_sheet_data(sheet_name)
+        except Exception as e:
+            print(f"❌ Failed to process sheet '{sheet_name}': {e}")
+
+    output_path = os.path.join(ASSETS_DIR, "data.json")
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(all_data, f, indent=4, ensure_ascii=False)
+
+    print(f"\n🎉 All sheets processed and saved to {output_path}")
+
+
+if __name__ == "__main__":
+    main()

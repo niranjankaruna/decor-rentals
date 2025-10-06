@@ -1,48 +1,144 @@
-[
-  {
-    "Name": "Backdrop",
-    "Description": "",
-    "Price": "",
-    "Category": [
-      "Decor"
+{
+    "Categories": [
+        {
+            "Name": "Miscellaneous",
+            "Image": "",
+            "ImageLinks": "https://drive.google.com/file/d/1Em0VL6P3HP8-Mf5EMW_hl43I1S3QtvK7/view?usp=drive_link",
+            "Description": "",
+            "CategoryReference": "Miscellaneous--[1Em0VL6P3HP8-Mf5EMW_hl43I1S3QtvK7]",
+            "ImageLocal": [
+                "assets/images/1Em0VL6P3HP8-Mf5EMW_hl43I1S3QtvK7.jpg"
+            ]
+        },
+        {
+            "Name": "Flowers",
+            "Image": "",
+            "ImageLinks": "https://drive.google.com/file/d/1Dy1-2JevbU1yizzv8Ir9ZqeLk7pQja87/view?usp=drive_link",
+            "Description": "",
+            "CategoryReference": "Flowers--[1Dy1-2JevbU1yizzv8Ir9ZqeLk7pQja87]",
+            "ImageLocal": [
+                "assets/images/1Dy1-2JevbU1yizzv8Ir9ZqeLk7pQja87.webp"
+            ]
+        },
+        {
+            "Name": "Arch",
+            "Image": "",
+            "ImageLinks": "https://drive.google.com/file/d/1YV3AwrD7y8DJY9XdKRWs2WsLp6wIOcHT/view?usp=drive_link",
+            "Description": "",
+            "CategoryReference": "Arch--[1YV3AwrD7y8DJY9XdKRWs2WsLp6wIOcHT]",
+            "ImageLocal": [
+                "assets/images/1YV3AwrD7y8DJY9XdKRWs2WsLp6wIOcHT.jpg"
+            ]
+        },
+        {
+            "Name": "Lighting",
+            "Image": "",
+            "ImageLinks": "https://drive.google.com/file/d/1xtFHvupuB77d7RQz4VgK0zASj8AEXWKh/view?usp=drive_link",
+            "Description": "",
+            "CategoryReference": "Lighting--[1xtFHvupuB77d7RQz4VgK0zASj8AEXWKh]",
+            "ImageLocal": [
+                "assets/images/1xtFHvupuB77d7RQz4VgK0zASj8AEXWKh.jpg"
+            ]
+        },
+        {
+            "Name": "Backdrop",
+            "Image": "",
+            "ImageLinks": "https://drive.google.com/file/d/1PoBnlCBv9-NbGpUY4XZz_Ze8ejG3rz0U/view?usp=drive_link",
+            "Description": "",
+            "CategoryReference": "Backdrop--[1PoBnlCBv9-NbGpUY4XZz_Ze8ejG3rz0U]",
+            "ImageLocal": [
+                "assets/images/1PoBnlCBv9-NbGpUY4XZz_Ze8ejG3rz0U.jpg"
+            ]
+        },
+        {
+            "Name": "Decor",
+            "Image": "",
+            "ImageLinks": "https://drive.google.com/file/d/1c-aj1DZcmYrPwTGp-ihOW2Gf721A2Fie/view?usp=drive_link",
+            "Description": "",
+            "CategoryReference": "Decor--[1c-aj1DZcmYrPwTGp-ihOW2Gf721A2Fie]",
+            "ImageLocal": [
+                "assets/images/1c-aj1DZcmYrPwTGp-ihOW2Gf721A2Fie.jpg"
+            ]
+        }
     ],
-    "Tags": [
-      "Birthday",
-      "Baby Shower",
-      "Gender Reveal",
-      "House warming"
+    "Products": [
+        {
+            "Name": "Metal Arch",
+            "Description": "",
+            "Price": "",
+            "Category": "",
+            "Image": "",
+            "ImageLinks": "https://drive.google.com/file/d/1bURYk4pY19a_R_a0yEoV8fxc_gNXLAg1/view?usp=drive_link|https://drive.google.com/file/d/1pnkjxAyBeuDU_H91-6UUuAVu9wv93ZV9/view?usp=drive_link",
+            "ProductReference": "Metal Arch--[1C5knelC-wAHf_GdLVqNYp7u66lkRt4A-]",
+            "ImageLocal": [
+                "assets/images/1bURYk4pY19a_R_a0yEoV8fxc_gNXLAg1.jpg",
+                "assets/images/1pnkjxAyBeuDU_H91-6UUuAVu9wv93ZV9.webp"
+            ]
+        },
+        {
+            "Name": "Garland",
+            "Description": "",
+            "Price": "",
+            "Category": "",
+            "Image": "",
+            "ImageLinks": "https://drive.google.com/file/d/1stfCRypg5rtBgsWjKklY2qEX80o8ytNG/view?usp=drive_link|https://drive.google.com/file/d/1GfKuufyLBP1bwn8vLaJSh4MDfRZt0NCG/view?usp=drive_link|https://drive.google.com/file/d/121fnkvZLXKxeSVGTCsHm_eAYrKygM6t6/view?usp=drive_link",
+            "ProductReference": "Garland--[1gcB8tqF9k2KBnOw3Gaz6OZ0Zvl8aqUYv]",
+            "ImageLocal": [
+                "assets/images/1stfCRypg5rtBgsWjKklY2qEX80o8ytNG.jpg",
+                "assets/images/1GfKuufyLBP1bwn8vLaJSh4MDfRZt0NCG.jpg",
+                "assets/images/121fnkvZLXKxeSVGTCsHm_eAYrKygM6t6.jpg"
+            ]
+        },
+        {
+            "Name": "Chair",
+            "Description": "",
+            "Price": "",
+            "Category": "",
+            "Image": "",
+            "ImageLinks": "https://drive.google.com/file/d/1Cki0ZoRC1ga-ocdXME3S8cNnR4M7dOed/view?usp=drive_link",
+            "ProductReference": "Chair--[19X80I3z6kCY0VupZJbOk4UVv2NLKn6RO]",
+            "ImageLocal": [
+                "assets/images/1Cki0ZoRC1ga-ocdXME3S8cNnR4M7dOed.webp"
+            ]
+        }
     ],
-    "Decor": [
-      "Banana leaf Decor"
+    "Decors": [
+        {
+            "Name": "Banana leaf Decor",
+            "Image": "",
+            "Products": "Metal Arch--[1C5knelC-wAHf_GdLVqNYp7u66lkRt4A-], Garland--[1gcB8tqF9k2KBnOw3Gaz6OZ0Zvl8aqUYv], Chair--[19X80I3z6kCY0VupZJbOk4UVv2NLKn6RO]",
+            "ImageLinks": "https://drive.google.com/file/d/1Co8pYhpXfGZ3SUYn4GU6vEA5-grMmpWk/view?usp=drive_link|https://drive.google.com/file/d/1w_nU-8nrBv-4RTTF9cA_StjhmfM5721g/view?usp=drive_link|https://drive.google.com/file/d/1GhzddF8uaYR2UxFpIdaogJqDUVJ4E77K/view?usp=drive_link",
+            "Description": "",
+            "DecorReference": "Banana leaf Decor--[1XfLldfI-0FErJUNPx0g11cxczNFbJseX]",
+            "ImageLocal": [
+                "assets/images/1Co8pYhpXfGZ3SUYn4GU6vEA5-grMmpWk.jpg",
+                "assets/images/1w_nU-8nrBv-4RTTF9cA_StjhmfM5721g.mp4",
+                "assets/images/1GhzddF8uaYR2UxFpIdaogJqDUVJ4E77K.jpg"
+            ]
+        }
     ],
-    "webContentLinks": "https://drive.google.com/file/d/1MDLsRwYMMwqju8v1oHVq3IjxGKt-pxa3/view?usp=drive_link|https://drive.google.com/file/d/1PsLlRa-4Gwg711vlz-RqQHh_BRYhuH57/view?usp=drive_link",
-    "ProductReference": "Backdrop_1Wd-qGWdS7mv52K8hK6Kn-GKZOHhb0m0N",
-    "ImagesLocal": [
-      "src/assets\\images/1MDLsRwYMMwqju8v1oHVq3IjxGKt-pxa3.jpg",
-      "src/assets\\images/1PsLlRa-4Gwg711vlz-RqQHh_BRYhuH57.jpg"
+    "Events": [
+        {
+            "Name": "Baby Shower",
+            "Image": "",
+            "Decors": "Banana leaf Decor--[1XfLldfI-0FErJUNPx0g11cxczNFbJseX]",
+            "ImageLinks": "https://drive.google.com/file/d/1c8AOXZ4qsvL-GW-peFPiFDS2aB_6wiKn/view?usp=drive_link",
+            "Description": "",
+            "EventReference": "Baby Shower--[1c8AOXZ4qsvL-GW-peFPiFDS2aB_6wiKn]",
+            "ImageLocal": [
+                "assets/images/1c8AOXZ4qsvL-GW-peFPiFDS2aB_6wiKn.jpg"
+            ]
+        },
+        {
+            "Name": "Birthday",
+            "Image": "",
+            "Decors": "",
+            "ImageLinks": "https://drive.google.com/file/d/1bufjO-Ybc4pauSaWt_LbUbusWxa8EzpI/view?usp=drive_link",
+            "Description": "",
+            "EventReference": "Birthday--[1bufjO-Ybc4pauSaWt_LbUbusWxa8EzpI]",
+            "ImageLocal": [
+                "assets/images/1bufjO-Ybc4pauSaWt_LbUbusWxa8EzpI.webp"
+            ]
+        }
     ]
-  },
-  {
-    "Name": "Arch",
-    "Description": "",
-    "Price": "",
-    "Category": [
-      "Arch"
-    ],
-    "Tags": [
-      "Birthday",
-      "Baby Shower",
-      "Gender Reveal",
-      "House warming"
-    ],
-    "Decor": [],
-    "webContentLinks": "https://drive.google.com/file/d/1OyYfL6mHQ2afQ3B80vFr9nmGwkKNkud5/view?usp=drive_link|https://drive.google.com/file/d/124lBt_OqqLAJbyplg2kWJ5AXrZCoErsP/view?usp=drive_link|https://drive.google.com/file/d/16_pSTNVly6MUsTtshK3OekaxK4l2u-R9/view?usp=drive_link|https://drive.google.com/file/d/1H88cGA0CnkMvhVDIhBwebLjCivOCleLu/view?usp=drive_link",
-    "ProductReference": "Arch_1HH0-_mJ1sy8vhAU4dIFOJ7_fajr_zGCN",
-    "ImagesLocal": [
-      "src/assets\\images/1OyYfL6mHQ2afQ3B80vFr9nmGwkKNkud5.jpg",
-      "src/assets\\images/124lBt_OqqLAJbyplg2kWJ5AXrZCoErsP.jpg",
-      "src/assets\\images/16_pSTNVly6MUsTtshK3OekaxK4l2u-R9.jpg",
-      "src/assets\\images/1H88cGA0CnkMvhVDIhBwebLjCivOCleLu.jpg"
-    ]
-  }
-]
+}
