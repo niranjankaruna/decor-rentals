@@ -13,7 +13,7 @@ import { EventItem } from '../../models/event.model';
     HttpClientModule       // <-- needed to use DataService with HttpClient
   ],
   templateUrl: './events.component.html',
-  styleUrl: './events.component.css'
+  styleUrls: ['./events.component.css']
 })
 export class EventsComponent implements OnInit {
   events: EventItem[] = [];
@@ -24,5 +24,15 @@ export class EventsComponent implements OnInit {
     this.dataService.getData().subscribe(data => {
       this.events = data.Events || [];
     });
+  }
+
+  /**
+   * Return a thumbnail image for an event (first ImageLocal) or undefined.
+   */
+  getThumbnail(event: EventItem): string | undefined {
+    if (!event) return undefined;
+    const imgs = event['ImageLocal'];
+    if (Array.isArray(imgs) && imgs.length) return imgs[0];
+    return undefined;
   }
 }

@@ -1,0 +1,91 @@
+:host {
+	display: block;
+	padding: 1rem;
+}
+
+.events-grid {
+	display: grid;
+	/* Use fixed-width columns so the visible set of cards stays centered.
+		 Each column is the card width; auto-fit will wrap as the viewport changes. */
+	grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
+	gap: 1.25rem;
+	align-items: start;
+	justify-content: center; /* center the whole grid in the container */
+	justify-items: center; /* keep cards centered in each grid cell */
+}
+
+.event-card {
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	/* Playing card aspect ratio: width / height = 5 / 7 (~0.714) */
+	width: 220px; /* base width for a playing-card look */
+	max-width: 100%;
+	aspect-ratio: 5 / 7;
+}
+
+.event-media {
+	width: 100%;
+	/* take roughly top 55% of the card to emulate a portrait photo area */
+	height: 55%;
+	overflow: hidden;
+	background: #f6f6f6;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.event-media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.event-body {
+	padding: 0.75rem 0.9rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	/* occupy remaining card height */
+	height: 45%;
+	box-sizing: border-box;
+}
+
+.event-title {
+	margin: 0;
+	font-size: 1.05rem;
+	line-height: 1.2;
+}
+
+.event-desc {
+	margin: 0;
+	color: #444;
+	font-size: 0.95rem;
+	flex: 1 1 auto;
+}
+
+.event-decors {
+	margin: 0;
+	font-size: 0.85rem;
+	color: #666;
+}
+
+@media (max-width: 480px) {
+	.event-media { height: 52%; }
+}
+
+/* Responsive column adjustments */
+@media (max-width: 1024px) {
+	/* allow two cards side by side when space allows */
+	.events-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 220px)); }
+}
+
+@media (max-width: 640px) {
+	/* single column layout with card width responsive to viewport */
+	.events-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 86vw)); }
+	.event-card { width: min(86vw, 320px); }
+}
