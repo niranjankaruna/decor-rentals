@@ -178,8 +178,8 @@
 }
 
 .hero-content { position: relative; z-index: 10; max-width: 800px; padding: 0 20px; }
-.hero-content h1 { font-size: 3rem; font-weight: 800; color: #FFF7E8; text-shadow: 2px 2px 8px rgba(0,0,0,0.4); margin-bottom: 16px; }
-.hero-content p { font-size: 1.2rem; color: #FFF7E8; margin-bottom: 24px; text-shadow: 1px 1px 6px rgba(0,0,0,0.3); }
+.hero-content h1 { font-size: 3rem; font-weight: 800; color: #FFF7E8; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); margin-bottom: 16px; }
+.hero-content p { font-size: 1.5rem; color: #FFF7E8; margin-bottom: 24px; text-shadow: 1px 1px 6px rgba(0,0,0,0.6); }
 
 .hero-btn {
   display: inline-block;
@@ -258,6 +258,6 @@ footer {
   .nav-links.desktop { display: none; }
   .mobile-menu-btn { display: block; }
   .hero { height: 36vh; }
-  .hero-content h1 { font-size: 2rem; }
-  .hero-content p { font-size: 1rem; }
+  .hero-content h1 { font-size: 2.5rem; }
+  .hero-content p { font-size: 1.5rem; }
 }
