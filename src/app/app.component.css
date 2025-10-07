@@ -364,7 +364,7 @@ footer {
 
 /* Mobile - Extra Small */
 @media screen and (max-width: 480px) {
-  .hero { height: 30vh; }
+  .hero { height: 25vh; }
   .hero-content h1 { font-size: 1.5rem; }
   .hero-content p { font-size: 1rem; }
   .hero-btn { padding: 10px 20px; font-size: 0.9rem; }
