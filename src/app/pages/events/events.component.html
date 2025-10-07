@@ -1,9 +1,9 @@
-<section class="events-page">
-  <div class="events-grid">
-    <article *ngFor="let event of events" class="event-card">
+<section class="app-page">
+  <div class="app-grid">
+    <article *ngFor="let event of events" class="app-card">
       <!-- Background image -->
       <div
-        class="event-media"
+        class="app-media"
         *ngIf="getThumbnail(event)"
         [ngStyle]="{ 'background-image': 'url(' + getThumbnail(event) + ')' }"
       ></div>
@@ -16,7 +16,7 @@
         <div class="show-cont">
           <h3 class="media-title">{{ event['Name'] }}</h3>
           <p class="card-content">{{ event['Description'] }}</p>
-          <a class="explore-btn">Explore</a>
+          <a class="explore-btn"  (click)="onEventClick(event)">Explore</a>
         </div>
       </figcaption>
 

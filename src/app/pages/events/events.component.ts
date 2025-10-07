@@ -1,6 +1,8 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';   // <-- import this
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { EventService } from '../../services/event.service';
 import { DataService } from '../../services/data.service';
 import { EventItem } from '../../models/event.model';
 
@@ -18,14 +20,23 @@ import { EventItem } from '../../models/event.model';
 export class EventsComponent implements OnInit {
   events: EventItem[] = [];
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+    private eventService: EventService
+  ) {}
 
   ngOnInit(): void {
+    //Get all events from data service
     this.dataService.getData().subscribe(data => {
       this.events = data.Events || [];
     });
   }
 
+   onEventClick(event: EventItem) {
+    this.eventService.setEvent(event);
+    this.router.navigate(['/collections']);
+  }
   /**
    * Return a thumbnail image for an event (first ImageLocal) or undefined.
    */
